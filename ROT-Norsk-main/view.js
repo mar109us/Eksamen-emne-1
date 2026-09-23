@@ -11,7 +11,7 @@ function buildView() {
 
 function buildInput() {
    return `
-   <input type="text">
+   <input oninput="app.inputData=this.value" type="text">
    <button>Encrypt</button>
    <button>Decrypt</button>
    `
