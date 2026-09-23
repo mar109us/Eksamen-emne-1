@@ -7,43 +7,36 @@ function decrypt(text) {
 }
 
 function rotateText(text, mode) {
-   let textCopy = text;
    let tempText = "";
-   for (let char of textCopy) {
+   for (let char of text) {
       tempText += rotateChar(char, mode);
    }
    return tempText;
 }
 
 function rotateChar(char, mode) {
-   let lowerCase = app.alphabetLower
-   let upperCase = app.alphabetUpper
-   let newChar;
-   if (lowerCase.includes(char)) {
-      let index = lowerCase.indexOf(char);
+   let currentCase = isLowerOrUpper(char); // find correct reference path
+   if (!currentCase.includes(char)) return char; // early return if char is special char
+   else {
+      let newChar = "";
       if (mode === "encrypt") {
-         newChar = index + app.shiftValue;
-         if (newChar >= app.alphabetLength) newChar = newChar - app.alphabetLength;
+         newChar = currentCase.indexOf(char) + app.shiftValue;
+         if (newChar >= app.alphabetLength) newChar = newChar - app.alphabetLength; // if outside range
+         newChar = currentCase.charAt(newChar);
       }
       if (mode === "decrypt") {
-         newChar = index - app.shiftValue;
-         if (newChar < 0) newChar = app.alphabetLength + newChar;
+         newChar = currentCase.indexOf(char) - app.shiftValue;
+         if (newChar < 0) newChar = app.alphabetLength + newChar; // if outside range
+         newChar = currentCase.charAt(newChar);
       }
-      newChar = app.alphabetLower.charAt(newChar);
       return newChar;
    }
-   if (upperCase.includes(char)) {
-      let index = upperCase.indexOf(char);
-      if (mode === "encrypt") {
-         newChar = index + app.shiftValue;
-         if (newChar >= app.alphabetLength) newChar = newChar - app.alphabetLength;
-      }
-      if (mode === "decrypt") {
-         newChar = index - app.shiftValue;
-         if (newChar < 0) newChar = app.alphabetLength + newChar;
-      }
-      newChar = upperCase.charAt(newChar);
-      return newChar;
+}
+
+function isLowerOrUpper(char) {
+   if (app.alphabetLower.includes(char)) {
+      return app.alphabetLower;
+   } else {
+      return app.alphabetUpper; // no statement since its either upper or special char
    }
-   return char;
 }
