@@ -1,22 +1,70 @@
 <!doctype html>
 <html>
-  <meta charset="utf-8" />
-  <title>QUnit</title>
-  <link
-    rel="stylesheet"
-    href="https://code.jquery.com/qunit/qunit-2.26.0.css"
-  />
-  <body>
-    <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
-    <script src="https://code.jquery.com/qunit/qunit-2.26.0.js"></script>
-    <script src="logic.js"></script>
-    <script>
-      QUnit.test("små bokstaver forskyves riktig", function (assert) {
-        let expected = "opq";
-        let actual = encrypt("abc");
-        assert.equal(actual, expected);
-      });
-    </script>
-  </body>
+   <meta charset="utf-8" />
+   <title>QUnit</title>
+   <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.26.0.css" />
+   <body>
+      <div id="qunit"></div>
+      <div id="qunit-fixture"></div>
+      <script src="https://code.jquery.com/qunit/qunit-2.26.0.js"></script>
+      <script src="globals.js"></script>
+      <script src="logic.js"></script>
+      <script>
+         QUnit.test("små bokstaver forskyves riktig", function (assert) {
+            let expected = "opq";
+            let actual = encrypt("abc");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("De norske bokstavene (æ, ø, å) bretter rundt til starten av alfabetet", function (assert) {
+            let expected = "lmn";
+            let actual = encrypt("æøå");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Store bokstaver forblir store", function (assert) {
+            let expected = "LMN";
+            let actual = encrypt("ÆØÅ");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Blandet store og små bokstaver håndteres riktig", function (assert) {
+            let expected = "Pxmcø";
+            let actual = encrypt("Bjørn");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Mellomrom og tegnsetting er uendret", function (assert) {
+            let expected = "Vsw, gscrsø!";
+            let actual = encrypt("Hei, verden!");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Tall er uendret", function (assert) {
+            let expected = "opq123";
+            let actual = encrypt("abc123");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Tom tekst gir tom tekst", function (assert) {
+            let expected = "";
+            let actual = encrypt("");
+            assert.equal(actual, expected);
+         });
+         QUnit.test("decrypt() reverserer encrypt() fullstendig", function (assert) {
+            let text = "Er dette riktig?";
+            let expected = text;
+            let actual = decrypt(encrypt(text));
+            assert.equal(actual, expected);
+         });
+         QUnit.test("Chifferet er ikke selv-omvendt", function (assert) {
+            let text = "Er dette riktig?";
+            let expected = "Dq cdssd qhjshf?";
+            let actual = encrypt(encrypt(text));
+            assert.equal(actual, expected);
+         });
+
+         QUnit.done(function () {
+            document.querySelector("#qunit-header").remove();
+            document.querySelector("#qunit-banner").remove();
+            document.querySelector("#qunit-userAgent").remove();
+            document.querySelector("#qunit-testrunner-toolbar").remove();
+            document.querySelector("#qunit-testresult").remove();
+         });
+      </script>
+   </body>
 </html>
