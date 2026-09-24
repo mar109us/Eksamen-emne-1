@@ -5,5 +5,6 @@ const app = {
    alphabetLower: "abcdefghijklmnopqrstuvwxyzæøå",
    alphabetUpper: "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ",
    alphabetLength: 29,
-   shiftValue:14,
+   shiftValue: 14,
+   currentMode: "encrypt",
 };
