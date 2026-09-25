@@ -2,9 +2,13 @@ const app = {
    view: document.getElementById("app"),
    inputData: "",
    outputData: "",
-   alphabetLower: "abcdefghijklmnopqrstuvwxyzæøå",
-   alphabetUpper: "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ",
-   alphabetLength: 29,
    shiftValue: 14,
    currentMode: "encrypt",
+   message: "",
+};
+
+const alphabet = {
+   lower: "abcdefghijklmnopqrstuvwxyzæøå",
+   upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ",
+   length: 29,
 };

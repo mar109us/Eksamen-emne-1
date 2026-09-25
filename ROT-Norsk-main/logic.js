@@ -16,17 +16,18 @@ function rotateText(text, mode) {
 
 function rotateChar(char, mode) {
    let currentCase = isLowerOrUpper(char); // find correct reference path
-   if (!currentCase.includes(char)) return char; // early return if char is special char
+   if (!currentCase.includes(char))
+      return char; // early return if char is special char
    else {
       let newChar = "";
       if (mode === "encrypt") {
          newChar = currentCase.indexOf(char) + app.shiftValue;
-         if (newChar >= app.alphabetLength) newChar = newChar - app.alphabetLength; // if outside range
+         if (newChar >= alphabet.length) newChar = newChar - alphabet.length; // if outside range
          newChar = currentCase.charAt(newChar);
       }
       if (mode === "decrypt") {
          newChar = currentCase.indexOf(char) - app.shiftValue;
-         if (newChar < 0) newChar = app.alphabetLength + newChar; // if outside range
+         if (newChar < 0) newChar = alphabet.length + newChar; // if outside range
          newChar = currentCase.charAt(newChar);
       }
       return newChar;
@@ -34,9 +35,9 @@ function rotateChar(char, mode) {
 }
 
 function isLowerOrUpper(char) {
-   if (app.alphabetLower.includes(char)) {
-      return app.alphabetLower;
+   if (alphabet.lower.includes(char)) {
+      return alphabet.lower;
    } else {
-      return app.alphabetUpper; // no statement since its either upper or special char
+      return alphabet.upper; // no statement since its either upper or special char
    }
 }

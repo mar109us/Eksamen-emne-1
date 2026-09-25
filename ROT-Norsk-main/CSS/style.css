@@ -1,0 +1,36 @@
+.row {
+   display: flex;
+   flex-direction: row;
+}
+
+.column {
+   display: flex;
+   flex-direction: column;
+}
+
+.between {
+   justify-content: space-between;
+}
+
+.justifycenter {
+   justify-content: center;
+}
+
+.aligncenter {
+   align-items: center;
+}
+
+.center {
+   justify-content: center;
+   align-items: center;
+}
+
+.gap {
+   gap: 10px;
+}
+
+.active {
+   -webkit-transition: 0.6s;
+   transition: 0.6s;
+   background: linear-gradient(90deg, rgb(241, 201, 70), goldenrod);
+}
